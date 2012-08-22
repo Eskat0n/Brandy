@@ -1,9 +1,12 @@
 namespace Brandy.NHibernate
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using Core;
     using global::NHibernate;
 
     public abstract class NHibernateRepositoryBase<TEntity> : IRepository<TEntity>
+        where TEntity : class
     {
         private readonly ISessionProvider sessionProvider;
 
@@ -27,6 +30,12 @@ namespace Brandy.NHibernate
         public virtual void Remove(TEntity entity)
         {
             Session.Delete(entity);
+        }
+
+        public IEnumerable<TEntity> All()
+        {
+            return Session.QueryOver<TEntity>().List()
+                .AsEnumerable();
         }
 
         public virtual TEntity Get(int id)
