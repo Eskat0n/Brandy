@@ -19,8 +19,7 @@ namespace Brandy.Web.Forms
 		                                     ActionResult successResult,
 		                                     ActionResult failResult) where TForm : IForm
 		{
-			Uri urlReferrer = Request.UrlReferrer;
-			return Handle(form, () => successResult, () => failResult);
+		    return Handle(form, () => successResult, () => failResult);
 		}
 
 		protected ActionResult Handle<TForm>(TForm form,
@@ -41,10 +40,10 @@ namespace Brandy.Web.Forms
 
 					return successResultGetter();
 				}
-				catch (Exception e)
-				{
-					ModelState.AddModelError("", e.Message);
-				}
+                catch(FormHandlerExceptionBase e)
+                {
+                    ModelState.AddModelError(e.Key, e.Message);
+                }				
 			}
 
 			TempData[ModelStateKey] = ModelState;
