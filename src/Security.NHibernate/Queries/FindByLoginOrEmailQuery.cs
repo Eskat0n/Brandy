@@ -12,7 +12,7 @@ namespace Brandy.Security.NHibernate.Queries
             : base(linqProvider)
         {
         }
-
+                               
         public override User Ask(FindByLoginOrEmail criterion)
         {
             return Query<User>()

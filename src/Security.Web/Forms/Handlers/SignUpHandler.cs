@@ -31,8 +31,7 @@
                            part.With(new FindByLoginOrEmail {LoginOrEmail = command.Email});
 
             if (rowCount != null)
-                throw new ApplicationException(
-                    "В базе уже существует пользователь с таким именем или адресом электронной почты");
+                throw new ApplicationException("В базе уже существует пользователь с таким именем или адресом электронной почты");
 
             var user = new User {EMail = command.Email, Login = command.Login};
             user.SetPassword(command.Password);
